@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Firebase Authentication Example</title>
+  <script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-auth.js"></script>
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyArpZ-tq1tH6frBmwdF6emhT5d2EHIpMUo",
+      authDomain: "sorairo-service-platform.firebaseapp.com",
+      projectId: "sorairo-service-platform",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "751049505569",
+      appId: "1:751049505569:web:56fec3659e58b33a5f5c60"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+</head>
+<body>
+  <h3>Firebase Authentication with Google Sign-In</h3>
+  <button id="login-button">Login with Google</button>
+  <script>
+    document.getElementById('login-button').addEventListener('click', function() {
+      var provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithPopup(provider)
+        .then(function(result) {
+          var token = result.credential.accessToken;
+          var user = result.user;
+          console.log('User Info:', user);
+        })
+        .catch(function(error) {
+          console.error('Error:', error);
+        });
+    });
+  </script>
+</body>
+</html>
