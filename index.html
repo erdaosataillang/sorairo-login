@@ -5,12 +5,12 @@
   <script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-auth.js"></script>
   <script>
-    // Your web app's Firebase configuration
+    // Your web app's Firebase configuration (Consider storing this in a more secure location)
     var firebaseConfig = {
       apiKey: "AIzaSyArpZ-tq1tH6frBmwdF6emhT5d2EHIpMUo",
       authDomain: "sorairo-service-platform.firebaseapp.com",
       projectId: "sorairo-service-platform",
-      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      storageBucket: "sorairo-service-platform.appspot.com",  // Corrected to include the storage bucket name
       messagingSenderId: "751049505569",
       appId: "1:751049505569:web:56fec3659e58b33a5f5c60"
     };
@@ -23,17 +23,31 @@
   <button id="login-button">Login with Google</button>
   <script>
     document.getElementById('login-button').addEventListener('click', function() {
+      // Initialize Google Auth provider
       var provider = new firebase.auth.GoogleAuthProvider();
+      
+      // Sign in with popup
       firebase.auth().signInWithPopup(provider)
         .then(function(result) {
+          // Get the Google Access Token
           var token = result.credential.accessToken;
+          // Get the signed-in user info
           var user = result.user;
           console.log('User Info:', user);
         })
         .catch(function(error) {
-          console.error('Error:', error);
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          var email = error.email;
+          var credential = error.credential;
+          console.error('Error Code:', errorCode);
+          console.error('Error Message:', errorMessage);
+          console.error('Error Email:', email);
+          console.error('Error Credential:', credential);
         });
     });
   </script>
 </body>
 </html>
+
